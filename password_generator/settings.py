@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'generator', # v02.add a new app 
 ]
 
 MIDDLEWARE = [
