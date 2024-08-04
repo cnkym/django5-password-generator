@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from generator import views # v02.add a new page for app
 
 urlpatterns = [
+    path('', views.home), # v02.add a new page for app
     path('admin/', admin.site.urls),
+    path('password/', views.password, name='password'), # v03.add a form forpassword page
 ]
