@@ -22,6 +22,19 @@ def password(requests): # v03.add a form forpassword page
         '''
         return any(c in special_characters for c in s)
 
+    def check_result(requests, type, function, result, index):
+        if requests.GET.get(type):
+            if any(map(function, result)):
+                retry[index] = True
+                test[index] = 1
+            else:
+                retry[index] = False
+                test[index] = 0
+        else:
+            retry[index] = True
+            test[index] = 2
+        #print(test)
+
     characters = list('abcdefghijkmnopqrstuvwxyz')
     if requests.GET.get('numbers'):
         characters.extend(list("234567892345678923456789"))
@@ -46,38 +59,23 @@ def password(requests): # v03.add a form forpassword page
             retry[0] = False
             test[0] = 0
 
-        if requests.GET.get('uppercase'):
-            if any(map(str.isupper, thepassword)):
-                retry[1] = True
-                test[1] = 1
-            else:
-                retry[1] = False
-                test[1] = 0
-        else:
-            retry[1] = True
-            test[1] = 2
+        check_result( requests,
+                        type='uppercase',
+                        function=str.isupper,
+                        result=thepassword,
+                        index=1)
 
-        if requests.GET.get('numbers'):
-            if any(map(str.isdecimal, thepassword)):
-                retry[2] = True
-                test[2] = 1
-            else:
-                retry[2] = False
-                test[2] = 0
-        else:
-            retry[2] = True
-            test[2] = 2
+        check_result( requests,
+                        type='numbers',
+                        function=str.isdecimal,
+                        result=thepassword,
+                        index=2)
 
-        if requests.GET.get('special'):
-            if any(map(contains_special, thepassword)):
-                retry[3] = True
-                test[3] = 1
-            else:
-                retry[3] = False
-                test[3] = 0
-        else:
-            retry[3] = True
-            test[3] = 2
+        check_result( requests,
+                        type='special',
+                        function=contains_special,
+                        result=thepassword,
+                        index=3)
         #print(test)
 
     return render(requests,
