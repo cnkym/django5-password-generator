@@ -82,3 +82,9 @@ def password(requests): # v03.add a form forpassword page
                   'generator/password.html',    # passwoed html page
                   {'password' : thepassword},   # dict format message
                   )
+
+def about(requests):
+    return render(requests,
+                  'generator/about.html',
+                  {'msg' : "This is about page!"},
+                  )
