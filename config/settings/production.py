@@ -1,4 +1,4 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['password-generator.nkym.me']
+ALLOWED_HOSTS = ['pysan999.pythonanywhere.com']
